@@ -2,8 +2,6 @@ import type { Schema } from '../../amplify/data/resource'
 import { generateClient } from 'aws-amplify/data'
 import { useAuthenticator } from '@aws-amplify/ui-react'
 import { useState, useEffect } from 'react';
-import { uploadData } from 'aws-amplify/storage'
-import { fetchAuthSession } from 'aws-amplify/auth';
 import { FileUploader, StorageImage } from '@aws-amplify/ui-react-storage';
 import { remove } from 'aws-amplify/storage';
 import { downloadData } from 'aws-amplify/storage';
@@ -18,11 +16,7 @@ export default function Posts() {
     const caption = window.prompt("Caption")
     if (!caption) return;   // stop if empty
 
-    const editedPost = await client.models.Post.update({
-      id,
-      caption: caption,
-      date: new Date().toLocaleString(),
-    })
+    
   }
 
   const downloadPost = async (imagePath: string) => {
@@ -64,10 +58,6 @@ export default function Posts() {
   };
 
 
-  const fetchPosts = async () => {
-    const { data } = await client.models.Post.list();
-    setPosts(data);
-  }
 
   useEffect(() => {
     const sub = client.models.Post.observeQuery().subscribe({
