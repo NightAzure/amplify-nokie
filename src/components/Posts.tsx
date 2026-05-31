@@ -12,8 +12,8 @@ export default function Posts() {
   const [posts, setPosts] = useState<Schema["Post"]["type"][]>([]);
   const { user } = useAuthenticator();
 
-  const editPost = async () => {
-  
+  const editPost = async (_id: string) => {
+    
     const caption = window.prompt("Caption")
     if (!caption) return;   // stop if empty
 
